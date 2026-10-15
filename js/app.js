@@ -557,7 +557,39 @@ if (uploadBox) {
     });
   });
 
-  document.getElementById("reportForm").addEventListener("submit", (e) => {
+  
+/* report form: live progress bar */
+(function reportProgress() {
+  const form = document.getElementById("reportForm");
+  if (!form) return;
+  const ids = ["fName", "fPhone", "fType", "fDistrict", "fDate", "fDesc", "fConsent"];
+  const fill = document.getElementById("fpFill");
+  const label = document.getElementById("fpLabel");
+  const evidence = document.getElementById("fEvidence");
+  if (!fill || !label) return;
+  let evidenceHas = false;
+
+  function update() {
+    let done = 0;
+    ids.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (el.type === "checkbox" ? el.checked : el.value.trim()) done++;
+    });
+    if (evidenceHas) done++;
+    const total = ids.length + 1;
+    const pct = Math.round((done / total) * 100);
+    fill.style.width = pct + "%";
+    label.textContent = toBn(pct) + "% সম্পন্ন" + (pct === 100 ? " ✓" : "");
+  }
+  form.addEventListener("input", update);
+  form.addEventListener("change", update);
+  if (evidence) evidence.addEventListener("change", () => { evidenceHas = evidence.files.length > 0; update(); });
+  form.addEventListener("submit", () => { evidenceHas = false; setTimeout(update, 50); });
+  update();
+})();
+
+document.getElementById("reportForm").addEventListener("submit", (e) => {
     e.preventDefault();
 
     const stored = getStoredReports();

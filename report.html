@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=2.8" />
+  <link rel="stylesheet" href="css/style.css?v=2.9" />
 </head>
 <body>
   <!-- ================= ICON SPRITE ================= -->
@@ -117,19 +117,34 @@
         </div>
 
         <div class="report-form-card reveal">
+          <div class="fp-wrap">
+            <div class="fp-head">
+              <span>রিপোর্ট সম্পূর্ণ হওয়ার অবস্থা</span>
+              <strong id="fpLabel">০% সম্পন্ন</strong>
+            </div>
+            <div class="fp-bar"><div class="fp-fill" id="fpFill"></div></div>
+          </div>
+
           <form id="reportForm">
-            <h3>প্রতারকের তথ্য</h3>
+            <!-- STEP 1 -->
+            <div class="fs-step">
+              <span class="fs-num">১</span>
+              <div class="fs-titles">
+                <strong>প্রতারকের পরিচয়</strong>
+                <small>যার বিরুদ্ধে অভিযোগ, তার তথ্য দিন</small>
+              </div>
+            </div>
             <div class="form-grid">
               <div class="form-group">
-                <label>প্রতারকের নাম / ফেসবুক আইডি *</label>
+                <label>প্রতারকের নাম / ফেসবুক আইডি <span class="req">*</span></label>
                 <input type="text" id="fName" placeholder="যেমনঃ রাহাত হোসেন / রাহাত ট্রেডার্স" required />
               </div>
               <div class="form-group">
-                <label>মোবাইল নম্বর / বিকাশ *</label>
+                <label>মোবাইল নম্বর / বিকাশ <span class="req">*</span></label>
                 <input type="tel" id="fPhone" placeholder="01XXXXXXXXX" required />
               </div>
               <div class="form-group">
-                <label>প্রতারণার ধরন *</label>
+                <label>প্রতারণার ধরন <span class="req">*</span></label>
                 <select id="fType" required>
                   <option value="">— বাছাই করুন —</option>
                   <option>অনলাইন শপিং প্রতারণা</option>
@@ -142,13 +157,9 @@
                 </select>
               </div>
               <div class="form-group">
-                <label>ক্ষতির পরিমাণ (৳)</label>
-                <input type="number" id="fAmount" placeholder="যেমনঃ 5000" min="0" />
-              </div>
-              <div class="form-group">
-                <label>জেলা *</label>
+                <label>জেলা <span class="req">*</span></label>
                 <select id="fDistrict" required>
-                  <option value="">— জেলা বাছাই করুন —</option>
+<option value="">— জেলা বাছাই করুন —</option>
                   <option>ঢাকা</option>
                   <option>গাজীপুর</option>
                   <option>নারায়ণগঞ্জ</option>
@@ -215,28 +226,51 @@
                   <option>শেরপুর</option>
                 </select>
               </div>
-            </div>
-            <div class="form-group">
-              <label>কীভাবে প্রতারণা হয়েছে? *</label>
-              <textarea id="fDesc" rows="4" placeholder="বিস্তারিত লিখুন — কী প্রতিশ্রুতি দিয়েছিল, কীভাবে টাকা গেল, কখন..." required></textarea>
-            </div>
-            <div class="form-grid">
               <div class="form-group">
-                <label>প্রমাণ (স্ক্রিনশট) *</label>
-                <div class="upload-box" id="uploadBox">
-                  <span class="upload-icon"><svg class="ic"><use href="#i-image"/></svg></span>
-                  <span class="upload-text">স্ক্রিনশট দিন — চ্যাট, ট্রানজেকশন বা পেমেন্টের</span>
-                  <span class="upload-formats">PNG বা JPG · সর্বোচ্চ ৪টি ছবি</span>
-                  <input type="file" id="fEvidence" accept="image/*" multiple hidden />
-                </div>
-                <div class="upload-preview" id="uploadPreview"></div>
+                <label>ক্ষতির পরিমাণ (৳)</label>
+                <input type="number" id="fAmount" placeholder="যেমনঃ 5000" min="0" />
               </div>
               <div class="form-group">
-                <label>ঘটনার তারিখ *</label>
+                <label>ঘটনার তারিখ <span class="req">*</span></label>
                 <input type="date" id="fDate" required />
               </div>
             </div>
-            <h3>আপনার তথ্য <small>(গোপন থাকবে)</small></h3>
+
+            <div class="fs-divider"></div>
+
+            <!-- STEP 2 -->
+            <div class="fs-step">
+              <span class="fs-num">২</span>
+              <div class="fs-titles">
+                <strong>ঘটনার বিবরণ ও প্রমাণ</strong>
+                <small>যত বিস্তারিত লিখবেন, রিপোর্ট তত শক্ত হবে</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>কীভাবে প্রতারণা হয়েছে? <span class="req">*</span></label>
+              <textarea id="fDesc" rows="4" placeholder="বিস্তারিত লিখুন — কী প্রতিশ্রুতি দিয়েছিল, কীভাবে টাকা গেল, কখন..." required></textarea>
+            </div>
+            <div class="form-group">
+              <label>প্রমাণ (স্ক্রিনশট) <span class="req">*</span></label>
+              <div class="upload-box" id="uploadBox">
+                <span class="upload-icon"><svg class="ic"><use href="#i-camera"/></svg></span>
+                <span class="upload-text">স্ক্রিনশট দিন — চ্যাট, ট্রানজেকশন বা পেমেন্টের</span>
+                <span class="upload-formats">PNG বা JPG · সর্বোচ্চ ৪টি ছবি</span>
+                <input type="file" id="fEvidence" accept="image/*" multiple hidden />
+              </div>
+              <div class="upload-preview" id="uploadPreview"></div>
+            </div>
+
+            <div class="fs-divider"></div>
+
+            <!-- STEP 3 -->
+            <div class="fs-step">
+              <span class="fs-num">৩</span>
+              <div class="fs-titles">
+                <strong>আপনার তথ্য</strong>
+                <small>সম্পূর্ণ গোপন থাকবে — শুধু যাচাইয়ের প্রয়োজনে ব্যবহার হবে</small>
+              </div>
+            </div>
             <div class="form-grid">
               <div class="form-group">
                 <label>আপনার নাম</label>
@@ -247,19 +281,24 @@
                 <input type="tel" id="fContact" placeholder="যাচাইয়ের প্রয়োজনে" />
               </div>
             </div>
+
             <label class="checkbox-row">
               <input type="checkbox" id="fConsent" required />
               <span>আমি জানাচ্ছি, উপরের তথ্য সত্য এবং এগুলো প্রকাশের অনুমতি দিচ্ছি।</span>
             </label>
             <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
-              রিপোর্ট পাঠান
+              <svg class="ic"><use href="#i-shield"/></svg> রিপোর্ট পাঠান
             </button>
+            <p class="form-privacy">
+              <svg class="ic"><use href="#i-lock"/></svg>
+              আপনার পরিচয় কখনোই প্রকাশ করা হবে না — শুধু প্রতারকের তথ্য ডেটাবেজে যাবে।
+            </p>
             <div class="form-success" id="formSuccess">
               <svg class="ic"><use href="#i-check-circle"/></svg>
               <span>ধন্যবাদ! আপনার রিপোর্ট জমা হয়েছে। যাচাই শেষে ডেটাবেজে দেখা যাবে।</span>
             </div>
           </form>
-        </div>
+        </div></div>
       </div>
     </div>
   </section>
@@ -307,7 +346,7 @@
   </footer>
 
 
-  <script src="js/data.js?v=2.8"></script>
-  <script src="js/app.js?v=2.8"></script>
+  <script src="js/data.js?v=2.9"></script>
+  <script src="js/app.js?v=2.9"></script>
 </body>
 </html>
