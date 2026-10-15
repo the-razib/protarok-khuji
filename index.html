@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>প্রতারক খোঁজি — বাংলাদেশের অনলাইন প্রতারকদের ডেটাবেজ</title>
+  <meta name="description" content="অনলাইন প্রতারণার শিকার হয়েছেন? প্রতারক খোঁজিতে নাম বা মোবাইল নম্বর দিয়ে খুঁজুন স্ক্যামার লিস্টে আছে কি না, আর প্রমাণসহ রিপোর্ট করুন।" />
+  <meta property="og:title" content="প্রতারক খোঁজি — অনলাইন প্রতারকদের ডেটাবেজ" />
+  <meta property="og:description" content="নাম বা মোবাইল নম্বর দিয়ে খুঁজুন স্ক্যামার লিস্টে আছে কি না। প্রমাণসহ রিপোর্ট করুন, অন্যদের বাঁচান।" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23F42A41'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'%3E%E2%9A%A0%3C/text%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner">
+      <a href="#" class="logo">
+        <span class="logo-icon">⚠️</span>
+        <div class="logo-text">
+          <span class="logo-bn">প্রতারক খোঁজি</span>
+          <span class="logo-en">Protarok Khuji</span>
+        </div>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#search">খুঁজুন</a>
+        <a href="#how">কীভাবে কাজ করে</a>
+        <a href="#reports">সাম্প্রতিক রিপোর্ট</a>
+        <a href="#categories">প্রতারণার ধরন</a>
+        <a href="#faq">জিজ্ঞাসা</a>
+      </nav>
+      <a href="#report" class="btn btn-primary nav-cta">রিপোর্ট করুন</a>
+      <button class="hamburger" id="hamburger" aria-label="মেনু">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
+    <div class="container hero-inner">
+      <div class="hero-badge reveal">
+        <span class="pulse-dot"></span>
+        বাংলাদেশের নিজস্ব স্ক্যামার ডেটাবেজ
+      </div>
+      <h1 class="hero-title reveal">
+        অনলাইনে <span class="grad-text">প্রতারণার</span> শিকার
+        হওয়ার আগেই <span class="grad-text">খুঁজে নিন</span>
+      </h1>
+      <p class="hero-sub reveal">
+        টাকা পাঠানোর আগে নাম বা মোবাইল নম্বর দিয়ে চেক করুন — এই নম্বরটি আগে
+        কাউকে ঠকিয়েছে কি না। প্রতারণার শিকার হলে প্রমাণসহ রিপোর্ট করুন,
+        হাজারো মানুষ সতর্ক হবে।
+      </p>
+
+      <!-- SEARCH BOX -->
+      <div class="search-wrap reveal" id="search">
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="নাম বা মোবাইল নম্বর লিখুন (যেমনঃ 01712...)"
+            autocomplete="off"
+          />
+          <button class="btn btn-primary" id="searchBtn">খুঁজুন</button>
+        </div>
+        <div class="search-tags">
+          <span>জনপ্রিয় সার্চঃ</span>
+          <button class="tag" data-q="01712">01712••••••</button>
+          <button class="tag" data-q="রাহাত">রাহাত ভাই</button>
+          <button class="tag" data-q="bikash">বিকাশ প্রতারণা</button>
+          <button class="tag" data-q="মার্কেটপ্লেস">FB মার্কেটপ্লেস</button>
+        </div>
+      </div>
+
+      <!-- SEARCH RESULT -->
+      <div class="search-result" id="searchResult"></div>
+
+      <!-- STATS -->
+      <div class="stats-row reveal">
+        <div class="stat">
+          <span class="stat-num" data-count="1284">0</span>
+          <span class="stat-label">মোট রিপোর্ট</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-count="947">0</span>
+          <span class="stat-label">যাচাই করা প্রতারক</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-count="56">0</span>
+          <span class="stat-label">জেলা থেকে রিপোর্ট</span>
+        </div>
+        <div class="stat">
+          <span class="stat-num" data-count="38">0</span>
+          <span class="stat-label">লক্ষ্যাধিক টাকা জমা (হাজার ৳)</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-wave">
+      <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
+        <path d="M0,64 C240,96 480,0 720,32 C960,64 1200,96 1440,48 L1440,90 L0,90 Z" fill="currentColor"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ================= HOW IT WORKS ================= -->
+  <section class="section" id="how">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">সহজ ৩ ধাপে</span>
+        <h2>কীভাবে কাজ করে</h2>
+        <p>যে কেউ বিনামূল্যে ব্যবহার করতে পারে — রেজিস্ট্রেশনের দরকার নেই</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card reveal">
+          <div class="step-num">১</div>
+          <div class="step-icon">🔍</div>
+          <h3>নম্বর বা নাম খুঁজুন</h3>
+          <p>যার সাথে লেনদেন করতে যাচ্ছেন, তার নাম বা মোবাইল নম্বর দিয়ে সার্চ করুন। আমাদের ডেটাবেজ মিলিয়ে দেখবে।</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-num">২</div>
+          <div class="step-icon">✅</div>
+          <h3>রিপোর্ট দেখুন</h3>
+          <p>নম্বরটি লিস্টে থাকলে দেখতে পাবেন কতজন ঠকিয়েছে, কীভাবে ঠকিয়েছে, আর প্রমাণ কতটা শক্ত।</p>
+        </div>
+        <div class="step-card reveal">
+          <div class="step-num">৩</div>
+          <div class="step-icon">🛡️</div>
+          <h3>সতর্ক থাকুন, অন্যকে বাঁচান</h3>
+          <p>আপনি ঠকলে প্রমাণসহ রিপোর্ট করুন। আপনার একটি রিপোর্ট হয়তো হাজারো মানুষের টাকা বাঁচাবে।</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RECENT REPORTS ================= -->
+  <section class="section section-alt" id="reports">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">লাইভ ডেটাবেজ</span>
+        <h2>সাম্প্রতিক রিপোর্ট</h2>
+        <p>কমিউনিটির পাঠানো সর্বশেষ প্রতারণার রিপোর্ট</p>
+      </div>
+      <div class="filter-row reveal">
+        <button class="filter-btn active" data-filter="all">সব</button>
+        <button class="filter-btn" data-filter="verified">যাচাই করা</button>
+        <button class="filter-btn" data-filter="pending">যাচাই চলছে</button>
+      </div>
+      <div class="reports-grid" id="reportsGrid"></div>
+      <div class="center-btn reveal">
+        <button class="btn btn-outline" id="loadMoreBtn">আরও দেখুন ↓</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CATEGORIES ================= -->
+  <section class="section" id="categories">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="section-tag">সতর্কতা</span>
+        <h2>যেসব ধরনের প্রতারণা বেশি হচ্ছে</h2>
+        <p>লেনদেনের আগে চিনে নিন সবচেয়ে কমন স্ক্যামগুলো</p>
+      </div>
+      <div class="cat-grid">
+        <div class="cat-card reveal">
+          <div class="cat-icon">🛒</div>
+          <h3>অনলাইন শপিং প্রতারণা</h3>
+          <p>অর্ডারের অগ্রিম টাকা নিয়ে পণ্য না পাঠানো, নকল পণ্য পাঠানো।</p>
+          <span class="cat-count">৩২৭টি রিপোর্ট</span>
+        </div>
+        <div class="cat-card reveal">
+          <div class="cat-icon">📱</div>
+          <h3>বিকাশ / নগদ ফিশিং</h3>
+          <p>"অ্যাপ আপডেট করুন", "ক্যাশ আউট হবে" বলে OTP চাওয়া।</p>
+          <span class="cat-count">২৯১টি রিপোর্ট</span>
+        </div>
+        <div class="cat-card reveal">
+          <div class="cat-icon">💼</div>
+          <h3>চাকরির প্রতারণা</h3>
+          <p>ভুয়া অফার লেটার দেখিয়ে রেজিস্ট্রেশন ফি হাতিয়ে নেওয়া।</p>
+          <span class="cat-count">১৮৪টি রিপোর্ট</span>
+        </div>
+        <div class="cat-card reveal">
+          <div class="cat-icon">📈</div>
+          <h3>ইনভেস্টমেন্ট স্ক্যাম</h3>
+          <p>ডাবল রিটার্নের লোভ দেখিয়ে ক্রিপ্টো/ফরেক্স পোনজি স্কিম।</p>
+          <span class="cat-count">১৫৬টি রিপোর্ট</span>
+        </div>
+        <div class="cat-card reveal">
+          <div class="cat-icon">🚚</div>
+          <h3>কুরিয়ার প্রতারণা</h3>
+          <p>"পার্সেল এসেছে, ডেলিভারি চার্জ দিন" বলে অ্যাপে টাকা কাটা।</p>
+          <span class="cat-count">১২২টি রিপোর্ট</span>
+        </div>
+        <div class="cat-card reveal">
+          <div class="cat-icon">🎁</div>
+          <h3>লটারি / গিফট স্ক্যাম</h3>
+          <p>"আপনি জিতেছেন" বলে প্রসেসিং ফি চাওয়া, রেফারেল ফাঁদ।</p>
+          <span class="cat-count">৯৮টি রিপোর্ট</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= REPORT FORM ================= -->
+  <section class="section section-report" id="report">
+    <div class="container">
+      <div class="report-layout">
+        <div class="report-info reveal">
+          <span class="section-tag">আপনার কণ্ঠস্বর</span>
+          <h2>প্রতারণার শিকার হয়েছেন?<br />রিপোর্ট করুন, অন্যকে বাঁচান</h2>
+          <p>
+            আপনার দেওয়া তথ্য কমিউনিটির যাচাই শেষে ডেটাবেজে যুক্ত হবে।
+            যত বেশি রিপোর্ট, তত দ্রুত একজন প্রতারক সবার চোখে ধরা পড়ে।
+          </p>
+          <ul class="report-points">
+            <li><span>🔒</span> আপনার পরিচয় সম্পূর্ণ গোপন থাকবে</li>
+            <li><span>📸</span> স্ক্রিনশট প্রমাণ হিসেবে যুক্ত হবে</li>
+            <li><span>⚡</span> যাচাই শেষে ২৪ ঘণ্টার মধ্যে প্রকাশ হয়</li>
+          </ul>
+          <div class="report-note">
+            ⚠️ এটি একটি ডেমো সাইট — রিপোর্ট আপাতত আপনার ব্রাউজারেই সেভ হচ্ছে।
+            পরবর্তীতে এখানে ডেটাবেজ ও অ্যাডমিন যাচাই যুক্ত হবে।
+          </div>
+        </div>
+
+        <div class="report-form-card reveal">
+          <form id="reportForm">
+            <h3>প্রতারকের তথ্য</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>প্রতারকের নাম / ফেসবুক আইডি *</label>
+                <input type="text" id="fName" placeholder="যেমনঃ রাহাত হোসেন / রাহাত ট্রেডার্স" required />
+              </div>
+              <div class="form-group">
+                <label>মোবাইল নম্বর / বিকাশ *</label>
+                <input type="tel" id="fPhone" placeholder="01XXXXXXXXX" required />
+              </div>
+              <div class="form-group">
+                <label>প্রতারণার ধরন *</label>
+                <select id="fType" required>
+                  <option value="">— বাছাই করুন —</option>
+                  <option>অনলাইন শপিং প্রতারণা</option>
+                  <option>বিকাশ / নগদ ফিশিং</option>
+                  <option>চাকরির প্রতারণা</option>
+                  <option>ইনভেস্টমেন্ট স্ক্যাম</option>
+                  <option>কুরিয়ার প্রতারণা</option>
+                  <option>লটারি / গিফট স্ক্যাম</option>
+                  <option>অন্যান্য</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>ক্ষতির পরিমাণ (৳)</label>
+                <input type="number" id="fAmount" placeholder="যেমনঃ 5000" min="0" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>কীভাবে প্রতারণা হয়েছে? *</label>
+              <textarea id="fDesc" rows="4" placeholder="বিস্তারিত লিখুন — কী প্রতিশ্রুতি দিয়েছিল, কীভাবে টাকা গেল, কখন..." required></textarea>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>প্রমাণ (স্ক্রিনশট) *</label>
+                <div class="upload-box" id="uploadBox">
+                  <span class="upload-icon">📸</span>
+                  <span>স্ক্রিনশট দিন — চ্যাট, ট্রানজেকশন বা পেমেন্টের</span>
+                  <input type="file" id="fEvidence" accept="image/*" multiple hidden />
+                </div>
+                <div class="upload-preview" id="uploadPreview"></div>
+              </div>
+              <div class="form-group">
+                <label>ঘটনার তারিখ *</label>
+                <input type="date" id="fDate" required />
+              </div>
+            </div>
+            <h3>আপনার তথ্য <small>(গোপন থাকবে)</small></h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>আপনার নাম</label>
+                <input type="text" id="fReporter" placeholder="ঐচ্ছিক" />
+              </div>
+              <div class="form-group">
+                <label>যোগাযোগের নম্বর</label>
+                <input type="tel" id="fContact" placeholder="যাচাইয়ের প্রয়োজনে" />
+              </div>
+            </div>
+            <label class="checkbox-row">
+              <input type="checkbox" id="fConsent" required />
+              <span>আমি জানাচ্ছি, উপরের তথ্য সত্য এবং এগুলো প্রকাশের অনুমতি দিচ্ছি।</span>
+            </label>
+            <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
+              রিপোর্ট পাঠান
+            </button>
+            <div class="form-success" id="formSuccess">
+              🎉 ধন্যবাদ! আপনার রিপোর্ট জমা হয়েছে। যাচাই শেষে ডেটাবেজে দেখা যাবে।
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="section section-alt" id="faq">
+    <div class="container faq-wrap">
+      <div class="section-head reveal">
+        <span class="section-tag">জিজ্ঞাসা</span>
+        <h2>সাধারণ প্রশ্ন</h2>
+      </div>
+      <div class="faq-list reveal">
+        <details class="faq-item">
+          <summary>সার্চের ফলাফল কি ১০০% নির্ভরযোগ্য?</summary>
+          <p>না। এটি একটি কমিউনিটি ডেটাবেজ — রিপোর্টের ভিত্তিতে তৈরি। "যাচাই করা" ব্যাজের রিপোর্ট একাধিক ভিন্ন ব্যবহারকারীর প্রমাণে নিশ্চিত হয়েছে। তবুও লেনদেনের আগে নিজের বিচারবুদ্ধি ব্যবহার করুন।</p>
+        </details>
+        <details class="faq-item">
+          <summary>আমার নম্বর ভুলভালে রিপোর্ট হলে কী করব?</summary>
+          <p>যোগাযোগ পেজ থেকে প্রমাণসহ আপত্তি জানান। অ্যাডমিন টিম যাচাই করে ভুল রিপোর্ট সরিয়ে দেবে এবং ইচ্ছাকৃত মিথ্যা রিপোর্টকারীর বিরুদ্ধে ব্যবস্থা নেওয়া হবে।</p>
+        </details>
+        <details class="faq-item">
+          <summary>রিপোর্ট করলে কি টাকা ফেরত পাওয়া যায়?</summary>
+          <p>না, আমরা সরাসরি টাকা ফেরতের ব্যবস্থা করি না। আমাদের উদ্দেশ্য সতর্ক করা ও প্রতারক চিহ্নিত করা। টাকা ফেরত বা আইনগত পদক্ষেপের জন্য সাইবার ক্রাইম সেলে অভিযোগ করুন (cybercrime.gov.bd)।</p>
+        </details>
+        <details class="faq-item">
+          <summary>তথ্য কি ফ্রি?</summary>
+          <p>জি, সম্পূর্ণ ফ্রি। কোনো রেজিস্ট্রেশন, কোনো ফি নেই। সবাই খুঁজতে ও রিপোর্ট করতে পারে।</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <div class="logo">
+          <span class="logo-icon">⚠️</span>
+          <div class="logo-text">
+            <span class="logo-bn">প্রতারক খোঁজি</span>
+            <span class="logo-en">Protarok Khuji</span>
+          </div>
+        </div>
+        <p>বাংলাদেশের অনলাইন প্রতারকদের কমিউনিটি ডেটাবেজ। সতর্ক থাকুন, নিরাপদ থাকুন।</p>
+      </div>
+      <div class="footer-col">
+        <h4>পাতা</h4>
+        <a href="#search">খুঁজুন</a>
+        <a href="#reports">রিপোর্ট</a>
+        <a href="#report">রিপোর্ট করুন</a>
+        <a href="#faq">জিজ্ঞাসা</a>
+      </div>
+      <div class="footer-col">
+        <h4>সহায়তা</h4>
+        <a href="https://cybercrime.gov.bd" target="_blank" rel="noopener">সাইবার ক্রাইম অভিযোগ</a>
+        <a href="#faq">আপত্তি জানান</a>
+        <a href="#">গোপনীয়তা নীতি</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <span>© ২০২৬ প্রতারক খোঁজি · কমিউনিটির জন্য, কমিউনিটির দ্বারা</span>
+        <span>Made with ❤️ in Bangladesh</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modalContent"></div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
