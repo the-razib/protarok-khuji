@@ -169,13 +169,14 @@ if (reportsGrid) {
   const rpCount = document.getElementById("rpCount");
   const PAGE_SIZE = isFullPage ? 9 : 6;
   let shown = PAGE_SIZE;
-  let state = { status: "all", category: "all", q: "", sort: "recent" };
+  let state = { status: "all", category: "all", district: "all", q: "", sort: "recent" };
 
   function filteredList() {
     let list = [...getAllReports()];
     if (isFullPage) {
       if (state.status !== "all") list = list.filter((r) => r.status === state.status);
       if (state.category !== "all") list = list.filter((r) => r.type === state.category);
+      if (state.district !== "all") list = list.filter((r) => r.district === state.district);
       if (state.q) {
         const qn = normalizeNum(state.q);
         const qt = state.q.toLowerCase();
@@ -234,11 +235,16 @@ if (reportsGrid) {
     const rpSearch = document.getElementById("rpSearch");
     const rpCategory = document.getElementById("rpCategory");
     const rpSort = document.getElementById("rpSort");
+    const rpDistrict = document.getElementById("rpDistrict");
 
     rpSearch.addEventListener("input", () => { state.q = rpSearch.value.trim(); shown = PAGE_SIZE; renderReports(); });
     rpCategory.innerHTML = `<option value="all">সব ক্যাটাগরি</option>` +
       SCAM_TYPES.map((t) => `<option value="${t}">${t}</option>`).join("");
     rpCategory.addEventListener("change", () => { state.category = rpCategory.value; shown = PAGE_SIZE; renderReports(); });
+    const districtSet = [...new Set(getAllReports().map((r) => r.district).filter((d) => d && d !== "—"))].sort((x, y) => x.localeCompare(y, "bn"));
+    rpDistrict.innerHTML = `<option value="all">সব জেলা</option>` +
+      districtSet.map((d) => `<option value="${d}">${d}</option>`).join("");
+    rpDistrict.addEventListener("change", () => { state.district = rpDistrict.value; shown = PAGE_SIZE; renderReports(); });
     rpSort.addEventListener("change", () => { state.sort = rpSort.value; shown = PAGE_SIZE; renderReports(); });
 
     document.querySelectorAll("#rpStatus .filter-btn").forEach((btn) =>
@@ -523,7 +529,7 @@ if (uploadBox) {
       type: document.getElementById("fType").value,
       amount: +document.getElementById("fAmount").value || 0,
       date: toBn(document.getElementById("fDate").value || new Date().toISOString().slice(0, 10)),
-      district: "—",
+      district: document.getElementById("fDistrict")?.value || "—",
       reportsCount: 1,
       status: "pending",
       desc: document.getElementById("fDesc").value.trim(),
