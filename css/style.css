@@ -752,3 +752,10 @@ h1, h2, h3 { font-family: "Noto Serif Bengali", "Hind Siliguri", serif; }
   .stats-row { gap: 10px; }
   .stat-num { font-size: 1.7rem; }
 }
+
+/* ---------- v2.8: dynamic search hint ---------- */
+#searchInput::placeholder { color: #8E8778; opacity: 1; }
+.rp-search input::placeholder { color: #8E8778; opacity: 1; }
+input::placeholder, textarea::placeholder { color: #8E8778; opacity: 1; }
+select:required:invalid { color: #8E8778; }
+@media (prefers-reduced-motion: reduce) { #searchInput.ph-anim { } }

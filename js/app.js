@@ -100,6 +100,46 @@ if (statNums.length) {
 /* ============================================================
    HOMEPAGE: search
    ============================================================ */
+
+/* dynamic rotating placeholder for the hero search box */
+(function heroHint() {
+  const el = document.getElementById("searchInput");
+  if (!el) return;
+  const STATIC = el.placeholder;
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const hints = [
+    "মোবাইল নম্বর লিখুন — যেমন 01712345678",
+    "প্রতারকের নাম লিখুন — যেমন রাহাত ভাই",
+    "Facebook আইডি বা পেজ লিখুন — যেমন Crypto BD King",
+    "বিকাশ / নগদ নম্বর লিখুন — যেমন 01987654321",
+    "গ্রুপ বা পেজের নাম লিখুন — যেমন Daraz Lucky Winner",
+  ];
+  let h = 0, i = 0, deleting = false, active = false, timer = null;
+  const TYPE_MS = 55, HOLD_MS = 2100, DEL_MS = 22, GAP_MS = 350;
+
+  function tick() {
+    if (!active) return;
+    const t = hints[h];
+    if (!deleting) {
+      i++;
+      el.placeholder = t.slice(0, i);
+      if (i >= t.length) { deleting = true; timer = setTimeout(tick, HOLD_MS); return; }
+      timer = setTimeout(tick, TYPE_MS);
+    } else {
+      i--;
+      el.placeholder = t.slice(0, i);
+      if (i <= 0) { deleting = false; h = (h + 1) % hints.length; timer = setTimeout(tick, GAP_MS); return; }
+      timer = setTimeout(tick, DEL_MS);
+    }
+  }
+  function start() { if (active) return; active = true; i = 0; deleting = false; el.placeholder = ""; tick(); }
+  function stop() { if (!active && el.placeholder === STATIC) return; active = false; clearTimeout(timer); el.placeholder = STATIC; }
+
+  el.addEventListener("focus", stop);
+  el.addEventListener("blur", () => { if (!el.value.trim()) start(); });
+  start();
+})();
+
 const searchInput = document.getElementById("searchInput");
 if (searchInput) {
   const searchBtn = document.getElementById("searchBtn");
