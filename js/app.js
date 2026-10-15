@@ -7,6 +7,10 @@ const BN_DIGITS = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮"
 function toBn(str) {
   return String(str).replace(/[0-9]/g, (d) => BN_DIGITS[+d]);
 }
+/* SVG স্প্রাইট আইকন হেল্পার */
+function icon(name, cls = "ic") {
+  return `<svg class="${cls}" aria-hidden="true"><use href="#${name}"/></svg>`;
+}
 
 function maskPhone(phone) {
   const p = phone.replace(/\D/g, "");
@@ -91,7 +95,7 @@ function doSearch() {
   if (matches.length === 0) {
     searchResult.innerHTML = `
       <div class="result-card result-safe">
-        <div class="result-icon">✅</div>
+        <div class="result-icon">${icon("i-check-circle", "ic ic-big")}</div>
         <div>
           <h3>ডেটাবেজে পাওয়া যায়নি</h3>
           <p>"${q}" — এই তথ্য দিয়ে আমাদের কাছে এখন পর্যন্ত কোনো রিপোর্ট নেই। তবে সাবধান! লিস্টে না থাকা মানে নিরাপদ নয় — লেনদেনের আগে একটু ভেবে করুন, আর ঠকলে <a href="#report">রিপোর্ট করুন</a>।</p>
@@ -103,13 +107,15 @@ function doSearch() {
     const totalLoss = matches.reduce((s, m) => s + (+m.amount || 0), 0);
     searchResult.innerHTML = `
       <div class="result-card result-found">
-        <div class="result-icon">🚨</div>
+        <div class="result-icon">${icon("i-alert", "ic ic-big")}</div>
         <div style="flex:1">
           <h3>সতর্ক হোন! ${toBn(totalReports)} টি রিপোর্ট পাওয়া গেছে</h3>
           <p><strong>${matches[0].name}</strong> (${maskPhone(matches[0].phone)}) — এই তথ্যের বিরুদ্ধে ${toBn(totalReports)} জন রিপোর্ট করেছেন, মোট ক্ষতি প্রায় ৳${toBn(totalLoss.toLocaleString("en-US"))}।</p>
           <div class="result-meta">
-            ${verified > 0 ? `<span class="result-chip">✅ ${toBn(verified)} টি যাচাই করা</span>` : `<span class="result-chip">⏳ যাচাই চলছে</span>`}
-            <span class="result-chip">📋 ধরনঃ ${matches[0].type}</span>
+            ${verified > 0
+              ? `<span class="result-chip">${icon("i-check")} ${toBn(verified)} টি যাচাই করা</span>`
+              : `<span class="result-chip">${icon("i-clock")} যাচাই চলছে</span>`}
+            <span class="result-chip">${icon("i-file")} ধরনঃ ${matches[0].type}</span>
           </div>
           <div style="margin-top:14px">
             <button class="btn btn-primary" style="padding:8px 18px;font-size:0.9rem" onclick="openModalById(${matches[0].id})">বিস্তারিত দেখুন</button>
@@ -144,15 +150,17 @@ function renderReports() {
         <div class="rc-top">
           <span class="rc-type">${r.type}</span>
           <span class="badge ${r.status === "verified" ? "badge-verified" : "badge-pending"}">
-            ${r.status === "verified" ? "✓ যাচাই করা" : "⏳ যাচাই চলছে"}
+            ${r.status === "verified"
+              ? `${icon("i-check")} যাচাই করা`
+              : `${icon("i-clock")} যাচাই চলছে`}
           </span>
         </div>
         <h3 class="rc-name">${r.name}</h3>
-        <div class="rc-phone">📞 ${maskPhone(r.phone)}</div>
+        <div class="rc-phone">${icon("i-phone")} ${maskPhone(r.phone)}</div>
         <p class="rc-desc">${r.desc}</p>
         <div class="rc-foot">
-          <span>📍 ${r.district} · ${toBn(r.date)}</span>
-          <span class="rc-reports">⚠ ${toBn(r.reportsCount)} রিপোর্ট</span>
+          <span>${icon("i-pin")} ${r.district} · ${toBn(r.date)}</span>
+          <span class="rc-reports">${icon("i-alert")} ${toBn(r.reportsCount)} রিপোর্ট</span>
         </div>
       </div>`
     )
@@ -184,16 +192,16 @@ window.openModalById = function (id) {
     .map((src) => `<img src="${src}" alt="প্রমাণ স্ক্রিনশট" onclick="window.open('${src}')" />`)
     .join("");
   modalContent.innerHTML = `
-    <button class="modal-close" onclick="closeModal()">✕</button>
+    <button class="modal-close" onclick="closeModal()">${icon("i-x")}</button>
     <span class="rc-type">${r.type}</span>
     <h3 style="margin-top:10px">${r.name}</h3>
-    <div class="m-phone">📞 ${r.phone}</div>
+    <div class="m-phone">${icon("i-phone")} ${r.phone}</div>
     <div class="m-chips">
-      <span class="m-chip">${r.status === "verified" ? "✅ যাচাই করা" : "⏳ যাচাই চলছে"}</span>
-      <span class="m-chip">📍 ${r.district}</span>
-      <span class="m-chip">🗓 ${toBn(r.date)}</span>
-      <span class="m-chip">💸 ক্ষতি ৳${toBn((r.amount || 0).toLocaleString("en-US"))}</span>
-      <span class="m-chip">⚠ ${toBn(r.reportsCount)} রিপোর্ট</span>
+      <span class="m-chip">${r.status === "verified" ? icon("i-check") + " যাচাই করা" : icon("i-clock") + " যাচাই চলছে"}</span>
+      <span class="m-chip">${icon("i-pin")} ${r.district}</span>
+      <span class="m-chip">${icon("i-calendar")} ${toBn(r.date)}</span>
+      <span class="m-chip">${icon("i-card")} ক্ষতি ৳${toBn((r.amount || 0).toLocaleString("en-US"))}</span>
+      <span class="m-chip">${icon("i-alert")} ${toBn(r.reportsCount)} রিপোর্ট</span>
     </div>
     <p class="m-desc">${r.desc}</p>
     ${evidenceImgs ? `<div class="m-section-title">প্রমাণ স্ক্রিনশট</div><div class="m-evidence">${evidenceImgs}</div>` : ""}
