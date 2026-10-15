@@ -550,3 +550,36 @@ h1, h2, h3 { font-family: "Noto Serif Bengali", "Hind Siliguri", serif; }
 .page-hero h1 { font-size: clamp(1.7rem, 3.6vw, 2.3rem); font-weight: 800; margin-bottom: 10px; }
 .page-hero p { color: var(--muted); max-width: 560px; margin: 0 auto; font-size: 1rem; }
 .section-report.no-top-pad { padding-top: 0; }
+
+/* ---------- analysis page enhancements ---------- */
+.nav-links a.active-page { color: var(--red); font-weight: 700; }
+.an-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.an-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+
+@keyframes barGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.an-bar-fill { transform-origin: left center; animation: barGrow 0.9s cubic-bezier(0.22, 0.9, 0.35, 1) both; }
+.an-bar-row:nth-child(2) .an-bar-fill { animation-delay: 0.08s; }
+.an-bar-row:nth-child(3) .an-bar-fill { animation-delay: 0.16s; }
+.an-bar-row:nth-child(4) .an-bar-fill { animation-delay: 0.24s; }
+.an-bar-row:nth-child(5) .an-bar-fill { animation-delay: 0.32s; }
+.an-bar-row:nth-child(6) .an-bar-fill { animation-delay: 0.4s; }
+.an-bar-row:nth-child(7) .an-bar-fill { animation-delay: 0.48s; }
+
+@keyframes drawLine { to { stroke-dashoffset: 0; } }
+.an-trend-svg polyline { stroke-dasharray: 1600; stroke-dashoffset: 1600; animation: drawLine 1.6s ease 0.2s forwards; }
+.an-trend-svg path { animation: slideUp 0.9s ease 0.3s both; }
+@keyframes popDot { from { transform: scale(0); } to { transform: scale(1); } }
+.an-trend-svg circle { transform-box: fill-box; transform-origin: center; animation: popDot 0.35s ease 0.9s both; }
+.an-trend-svg text.an-trend-val { animation: slideUp 0.4s ease 1.2s both; }
+
+@keyframes donutIn { from { stroke-dasharray: 0 339; } }
+.an-donut-svg circle[stroke="#E93649"] { animation: donutIn 1.2s ease 0.2s; }
+
+.an-bars.money .an-bar-row { grid-template-columns: 170px 1fr 120px; }
+@media (max-width: 560px) { .an-bars.money .an-bar-row { grid-template-columns: 110px 1fr 92px; } .an-bars.money .an-bar-val { font-size: 0.72rem; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .an-bar-fill, .an-trend-svg polyline, .an-trend-svg path, .an-trend-svg circle,
+  .an-trend-svg text, .an-donut-svg circle { animation: none !important; }
+  .an-trend-svg polyline { stroke-dasharray: none; stroke-dashoffset: 0; }
+}

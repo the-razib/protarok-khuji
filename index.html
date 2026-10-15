@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=2.2" />
+  <link rel="stylesheet" href="css/style.css?v=2.3" />
 </head>
 <body>
 
@@ -60,7 +60,7 @@
       <nav class="nav-links" id="navLinks">
         <a href="#search">খুঁজুন</a>
         <a href="#reports">সাম্প্রতিক রিপোর্ট</a>
-        <a href="#analysis">বিশ্লেষণ</a>
+        <a href="analysis.html">বিশ্লেষণ</a>
         <a href="#categories">প্রতারণার ধরন</a>
         <a href="#faq">জিজ্ঞাসা</a>
       </nav>
@@ -251,47 +251,6 @@
     </div>
   </section>
 
-  <!-- ================= ADVANCED ANALYSIS ================= -->
-  <section class="section section-alt" id="analysis">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="section-tag">ডেটা বিশ্লেষণ</span>
-        <h2>অ্যাডভান্সড অ্যানালাইসিস রিপোর্ট</h2>
-        <p>রিপোর্টগুলো থেকে স্বয়ংক্রিয়ভাবে তৈরি হওয়া সর্বশেষ পরিসংখ্যান ও ট্রেন্ড</p>
-      </div>
-      <div class="an-stats reveal" id="anStats"></div>
-      <div class="an-grid">
-        <div class="an-card an-card-wide reveal">
-          <h3 class="an-title">ক্যাটাগরি অনুযায়ী রিপোর্ট</h3>
-          <div class="an-bars" id="anCategories"></div>
-        </div>
-        <div class="an-card reveal">
-          <h3 class="an-title">যাচাইয়ের অবস্থা</h3>
-          <div class="an-donut" id="anStatus"></div>
-        </div>
-        <div class="an-card an-card-wide reveal">
-          <h3 class="an-title">মাসভিত্তিক রিপোর্টের ট্রেন্ড</h3>
-          <div id="anTrend" class="an-trend"></div>
-        </div>
-        <div class="an-card reveal">
-          <h3 class="an-title">জেলা অনুযায়ী সেরা ৫</h3>
-          <div class="an-bars" id="anDistricts"></div>
-        </div>
-        <div class="an-card reveal">
-          <h3 class="an-title">সবচেয়ে বেশি রিপোর্ট হওয়া প্রতারক</h3>
-          <div id="anTop" class="an-top"></div>
-        </div>
-        <div class="an-card an-card-hint reveal">
-          <svg class="ic"><use href="#i-shield"/></svg>
-          <div>
-            <h3 class="an-title" style="margin-bottom:6px">কেন এই বিশ্লেষণ গুরুত্বপূর্ণ?</h3>
-            <p class="an-hint-text">যে ক্যাটাগরিতে প্রতারণা বাড়ছে, কোন এলাকায় ঝুঁকি বেশি — এগুলো জানলে আগে থেকেই সতর্ক হওয়া যায়। নতুন রিপোর্ট আসলে এই সংখ্যাগুলোও স্বয়ংক্রিয়ভাবে আপডেট হয়।</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ================= CTA BAND ================= -->
   <section class="cta-band">
     <div class="container cta-band-inner reveal">
@@ -349,7 +308,7 @@
         <a href="#search">খুঁজুন</a>
         <a href="#reports">সাম্প্রতিক রিপোর্ট</a>
         <a href="report.html">রিপোর্ট করুন</a>
-        <a href="#analysis">বিশ্লেষণ রিপোর্ট</a>
+        <a href="analysis.html">বিশ্লেষণ রিপোর্ট</a>
         <a href="#categories">প্রতারণার ধরন</a>
       </div>
       <div class="footer-col">
@@ -378,7 +337,7 @@
     <div class="modal" id="modalContent"></div>
   </div>
 
-  <script src="js/data.js?v=2.2"></script>
-  <script src="js/app.js?v=2.2"></script>
+  <script src="js/data.js?v=2.3"></script>
+  <script src="js/app.js?v=2.3"></script>
 </body>
 </html>

@@ -348,6 +348,21 @@ if (anStats) {
       ${dots}${labels}
     </svg>`;
 
+  /* loss by category */
+  const lossEl = document.getElementById("anLoss");
+  if (lossEl) {
+    const catLoss = {};
+    all.forEach((r) => { catLoss[r.type] = (catLoss[r.type] || 0) + (+r.amount || 0); });
+    const lossEntries = Object.entries(catLoss).sort((a, b) => b[1] - a[1]);
+    const maxL = Math.max(...lossEntries.map((e) => e[1]), 1);
+    lossEl.innerHTML = lossEntries.map(([c, v]) => `
+      <div class="an-bar-row">
+        <span class="an-bar-label">${c}</span>
+        <div class="an-bar-track"><div class="an-bar-fill" style="width:${(v / maxL) * 100}%"></div></div>
+        <span class="an-bar-val">${bnMoney(v)}</span>
+      </div>`).join("");
+  }
+
   /* by district (top 5) */
   const dCount = {};
   all.forEach((r) => {
