@@ -8,7 +8,7 @@
   <meta property="og:title" content="প্রতারক খোঁজি — অনলাইন প্রতারকদের ডেটাবেজ" />
   <meta property="og:description" content="নাম বা মোবাইল নম্বর দিয়ে খুঁজুন স্ক্যামার লিস্টে আছে কি না। প্রমাণসহ রিপোর্ট করুন, অন্যদের বাঁচান।" />
   <meta property="og:type" content="website" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23e63946'/%3E%3Cpath d='M50 24 16 82h68z' fill='none' stroke='white' stroke-width='7' stroke-linejoin='round'/%3E%3Cline x1='50' y1='52' x2='50' y2='64' stroke='white' stroke-width='7' stroke-linecap='round'/%3E%3Ccircle cx='50' cy='73' r='4' fill='white'/%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23E93649'/%3E%3Cpath d='M50 24 16 82h68z' fill='none' stroke='white' stroke-width='7' stroke-linejoin='round'/%3E%3Cline x1='50' y1='52' x2='50' y2='64' stroke='white' stroke-width='7' stroke-linecap='round'/%3E%3Ccircle cx='50' cy='73' r='4' fill='white'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Serif+Bengali:wght@600;700;800&display=swap" rel="stylesheet" />
@@ -41,8 +41,10 @@
     <symbol id="i-gift" viewBox="0 0 24 24"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></symbol>
     <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></symbol>
     <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></symbol>
-    <symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
     <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></symbol>
   </svg>
 
   <!-- ================= NAVBAR ================= -->
@@ -95,11 +97,15 @@
           <input
             type="text"
             id="searchInput"
-            placeholder="নাম বা মোবাইল নম্বর লিখুন (যেমনঃ 01712...)"
+            placeholder="ফোন নম্বর, নাম বা Facebook আইডি লিখুন"
             autocomplete="off"
           />
-          <button class="btn btn-primary" id="searchBtn">খুঁজুন</button>
+          <button class="btn btn-primary" id="searchBtn">যাচাই করুন</button>
         </div>
+        <p class="search-help">
+          <svg class="ic"><use href="#i-info"/></svg>
+          ফোন নম্বর, Facebook পেজ বা ওয়েবসাইট খুঁজুন।
+        </p>
         <div class="search-tags">
           <span>জনপ্রিয় সার্চঃ</span>
           <button class="tag" data-q="01712">01712••••••</button>
@@ -149,20 +155,26 @@
       </div>
       <div class="steps-grid">
         <div class="step-card reveal">
-          <div class="step-num">১</div>
-          <div class="step-icon"><svg class="ic"><use href="#i-search"/></svg></div>
+          <div class="step-icon">
+            <span class="step-icon-box"><svg class="ic"><use href="#i-search"/></svg></span>
+            <span class="step-num">১</span>
+          </div>
           <h3>নম্বর বা নাম খুঁজুন</h3>
           <p>যার সাথে লেনদেন করতে যাচ্ছেন, তার নাম বা মোবাইল নম্বর দিয়ে সার্চ করুন। আমাদের ডেটাবেজ মিলিয়ে দেখবে।</p>
         </div>
         <div class="step-card reveal">
-          <div class="step-num">২</div>
-          <div class="step-icon"><svg class="ic"><use href="#i-eye"/></svg></div>
+          <div class="step-icon">
+            <span class="step-icon-box"><svg class="ic"><use href="#i-eye"/></svg></span>
+            <span class="step-num">২</span>
+          </div>
           <h3>রিপোর্ট দেখুন</h3>
           <p>নম্বরটি লিস্টে থাকলে দেখতে পাবেন কতজন ঠকিয়েছে, কীভাবে ঠকিয়েছে, আর প্রমাণ কতটা শক্ত।</p>
         </div>
         <div class="step-card reveal">
-          <div class="step-num">৩</div>
-          <div class="step-icon"><svg class="ic"><use href="#i-shield-check"/></svg></div>
+          <div class="step-icon">
+            <span class="step-icon-box"><svg class="ic"><use href="#i-shield-check"/></svg></span>
+            <span class="step-num">৩</span>
+          </div>
           <h3>সতর্ক থাকুন, অন্যকে বাঁচান</h3>
           <p>আপনি ঠকলে প্রমাণসহ রিপোর্ট করুন। আপনার একটি রিপোর্ট হয়তো হাজারো মানুষের টাকা বাঁচাবে।</p>
         </div>
@@ -251,14 +263,31 @@
             যত বেশি রিপোর্ট, তত দ্রুত একজন প্রতারক সবার চোখে ধরা পড়ে।
           </p>
           <ul class="report-points">
-            <li><span><svg class="ic"><use href="#i-lock"/></svg></span> আপনার পরিচয় সম্পূর্ণ গোপন থাকবে</li>
-            <li><span><svg class="ic"><use href="#i-camera"/></svg></span> স্ক্রিনশট প্রমাণ হিসেবে যুক্ত হবে</li>
-            <li><span><svg class="ic"><use href="#i-zap"/></svg></span> যাচাই শেষে ২৪ ঘণ্টার মধ্যে প্রকাশ হয়</li>
+            <li>
+              <span class="rp-box"><svg class="ic"><use href="#i-zap"/></svg></span>
+              <div>
+                <span class="rp-title">সহজ রিপোর্টিং</span>
+                <span class="rp-desc">মাত্র ২ মিনিটে পুরো রিপোর্ট পাঠান</span>
+              </div>
+            </li>
+            <li>
+              <span class="rp-box"><svg class="ic"><use href="#i-camera"/></svg></span>
+              <div>
+                <span class="rp-title">প্রমাণ সংযুক্ত করুন</span>
+                <span class="rp-desc">চ্যাট ও পেমেন্টের স্ক্রিনশট যোগ করুন</span>
+              </div>
+            </li>
+            <li>
+              <span class="rp-box"><svg class="ic"><use href="#i-eye"/></svg></span>
+              <div>
+                <span class="rp-title">রিপোর্টের অবস্থা দেখুন</span>
+                <span class="rp-desc">যাচাই শেষে ব্যাজ সহ প্রকাশ হবে</span>
+              </div>
+            </li>
           </ul>
           <div class="report-note">
             <svg class="ic"><use href="#i-alert"/></svg>
-            এটি একটি ডেমো সাইট — রিপোর্ট আপাতত আপনার ব্রাউজারেই সেভ হচ্ছে।
-            পরবর্তীতে এখানে ডেটাবেজ ও অ্যাডমিন যাচাই যুক্ত হবে।
+            <span>এটি একটি ডেমো সাইট — রিপোর্ট আপাতত আপনার ব্রাউজারেই সেভ হচ্ছে। পরবর্তীতে এখানে ডেটাবেজ ও অ্যাডমিন যাচাই যুক্ত হবে।</span>
           </div>
         </div>
 
@@ -301,7 +330,8 @@
                 <label>প্রমাণ (স্ক্রিনশট) *</label>
                 <div class="upload-box" id="uploadBox">
                   <span class="upload-icon"><svg class="ic"><use href="#i-image"/></svg></span>
-                  <span>স্ক্রিনশট দিন — চ্যাট, ট্রানজেকশন বা পেমেন্টের</span>
+                  <span class="upload-text">স্ক্রিনশট দিন — চ্যাট, ট্রানজেকশন বা পেমেন্টের</span>
+                  <span class="upload-formats">PNG বা JPG · সর্বোচ্চ ৪টি ছবি</span>
                   <input type="file" id="fEvidence" accept="image/*" multiple hidden />
                 </div>
                 <div class="upload-preview" id="uploadPreview"></div>
@@ -331,7 +361,7 @@
             </button>
             <div class="form-success" id="formSuccess">
               <svg class="ic"><use href="#i-check-circle"/></svg>
-              ধন্যবাদ! আপনার রিপোর্ট জমা হয়েছে। যাচাই শেষে ডেটাবেজে দেখা যাবে।
+              <span>ধন্যবাদ! আপনার রিপোর্ট জমা হয়েছে। যাচাই শেষে ডেটাবেজে দেখা যাবে।</span>
             </div>
           </form>
         </div>
@@ -378,20 +408,26 @@
             <span class="logo-en">Protarok Khuji</span>
           </div>
         </div>
-        <p>বাংলাদেশের অনলাইন প্রতারকদের কমিউনিটি ডেটাবেজ। সতর্ক থাকুন, নিরাপদ থাকুন।</p>
+        <p>বাংলাদেশের অনলাইন প্রতারকদের কমিউনিটি ডেটাবেজ। নাম বা মোবাইল নম্বর দিয়ে প্রতারক খুঁজুন, প্রমাণসহ রিপোর্ট করুন। সতর্ক থাকুন, নিরাপদ থাকুন।</p>
       </div>
       <div class="footer-col">
-        <h4>পাতা</h4>
+        <h4>প্ল্যাটফর্ম</h4>
         <a href="#search">খুঁজুন</a>
-        <a href="#reports">রিপোর্ট</a>
+        <a href="#reports">সাম্প্রতিক রিপোর্ট</a>
         <a href="#report">রিপোর্ট করুন</a>
-        <a href="#faq">জিজ্ঞাসা</a>
+        <a href="#categories">প্রতারণার ধরন</a>
       </div>
       <div class="footer-col">
         <h4>সহায়তা</h4>
+        <a href="#faq">জিজ্ঞাসা</a>
         <a href="https://cybercrime.gov.bd" target="_blank" rel="noopener">সাইবার ক্রাইম অভিযোগ</a>
         <a href="#faq">আপত্তি জানান</a>
+      </div>
+      <div class="footer-col">
+        <h4>নীতিমালা</h4>
         <a href="#">গোপনীয়তা নীতি</a>
+        <a href="#">ব্যবহারের শর্তাবলি</a>
+        <a href="#">অনাকাঙ্ক্ষিত তথ্য নীতি</a>
       </div>
     </div>
     <div class="footer-bottom">

@@ -21,6 +21,20 @@ function normalizeNum(phone) {
   return phone.replace(/[^\d]/g, "").replace(/^88/, "");
 }
 
+/* বাংলা তারিখ: "২৮ সেপ্টেম্বর, ২০২৬" */
+const BN_MONTHS = ["জানুয়ারি","ফেব্রুয়ারি","মার্চ","এপ্রিল","মে","জুন","জুলাই","আগস্ট","সেপ্টেম্বর","অক্টোবর","নভেম্বর","ডিসেম্বর"];
+function bnToEn(s) {
+  return String(s).replace(/[০-৯]/g, (d) => String(BN_DIGITS.indexOf(d)));
+}
+function formatBnDate(str) {
+  const parts = bnToEn(str).split("-");
+  if (parts.length !== 3) return toBn(str);
+  return `${toBn(+parts[2])} ${BN_MONTHS[+parts[1] - 1]}, ${toBn(+parts[0])}`;
+}
+function reportCode(r) {
+  return "#" + toBn(r.code || 1000 + r.id);
+}
+
 /* ---------- navbar ---------- */
 const navbar = document.getElementById("navbar");
 const hamburger = document.getElementById("hamburger");
@@ -148,19 +162,23 @@ function renderReports() {
       (r, i) => `
       <div class="report-card" style="animation-delay:${i * 0.06}s" onclick="openModalById(${r.id})">
         <div class="rc-top">
-          <span class="rc-type">${r.type}</span>
           <span class="badge ${r.status === "verified" ? "badge-verified" : "badge-pending"}">
             ${r.status === "verified"
               ? `${icon("i-check")} যাচাই করা`
-              : `${icon("i-clock")} যাচাই চলছে`}
+              : `${icon("i-clock")} পর্যালোচনাধীন`}
           </span>
+          <span class="rc-date">${icon("i-calendar")} ${formatBnDate(r.date)}</span>
         </div>
         <h3 class="rc-name">${r.name}</h3>
-        <div class="rc-phone">${icon("i-phone")} ${maskPhone(r.phone)}</div>
+        <div class="rc-meta">
+          <span class="phone">${icon("i-phone")} ${maskPhone(r.phone)}</span>
+          <span class="reports">${icon("i-alert")} ${toBn(r.reportsCount)} রিপোর্ট</span>
+        </div>
+        <span class="rc-cat">ক্যাটাগরি: ${r.type}</span>
         <p class="rc-desc">${r.desc}</p>
         <div class="rc-foot">
-          <span>${icon("i-pin")} ${r.district} · ${toBn(r.date)}</span>
-          <span class="rc-reports">${icon("i-alert")} ${toBn(r.reportsCount)} রিপোর্ট</span>
+          <span class="rc-id">রিপোর্ট ID: ${reportCode(r)}</span>
+          <span class="rc-more">বিস্তারিত দেখুন ${icon("i-arrow")}</span>
         </div>
       </div>`
     )
@@ -241,6 +259,7 @@ document.getElementById("reportForm").addEventListener("submit", (e) => {
 
   const report = {
     id: Date.now(),
+    code: 2000 + getStoredReports().length + 1,
     name: document.getElementById("fName").value.trim(),
     phone: document.getElementById("fPhone").value.trim(),
     type: document.getElementById("fType").value,
